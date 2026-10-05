@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="ValidadorScript.Application.Tests/ValidadorScript.Application.Tests.csproj" Id="7efcbf39-7799-48b0-a5cc-8e8ac4c3b8d5" />
+  <Project Path="ValidadorScript.Application/ValidadorScript.Application.csproj" Id="f7a0aedb-a0cf-4feb-aa3f-29d4b6ebafbf" />
+  <Project Path="ValidadorScript.Domain/ValidadorScript.Domain.csproj" Id="e81d14be-65f1-47d2-a51a-adde0858ce47" />
+  <Project Path="ValidadorScript.Infra.Tests/ValidadorScript.Infra.Tests.csproj" Id="fb819517-4dbc-41d5-9e76-a0085da6318f" />
+  <Project Path="ValidadorScript.Infra/ValidadorScript.Infra.csproj" Id="63c699ce-f41a-456f-af10-8b6b8c2dd9e5" />
+  <Project Path="ValidadorScript.WinForms/ValidadorScript.WinForms.csproj" Id="dc0ab2f3-1d85-46dd-89d8-258f13a0651c" />
+</Solution>
