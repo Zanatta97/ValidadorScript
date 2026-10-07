@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
   </ItemGroup>
@@ -17,6 +18,12 @@
     <ProjectReference Include="..\ValidadorScript.Application\ValidadorScript.Application.csproj" />
     <ProjectReference Include="..\ValidadorScript.Domain\ValidadorScript.Domain.csproj" />
     <ProjectReference Include="..\ValidadorScript.Infra\ValidadorScript.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
