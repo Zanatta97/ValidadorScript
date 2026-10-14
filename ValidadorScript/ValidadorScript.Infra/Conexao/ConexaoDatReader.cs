@@ -7,7 +7,7 @@ using ValidadorScript.Infra.Configuracao;
 
 namespace ValidadorScript.Infra.Conexao
 {
-    public class ConexaoDatReader(CredenciaisDatabase credenciais) : IDadosConexaoReader
+    public class ConexaoDatReader(ICredenciaisStore credenciais) : IDadosConexaoReader
     {
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace ValidadorScript.Infra.Conexao
                     } else
                     {
                         // Lógica específica para SQL Server
-                        usuario = credenciais.SqlServer.Usuario; //Busca o valor padrão definido no appsettings.json
+                        usuario = credenciais.Obter().UsuarioSqlServer; //Busca o valor padrão definido no appsettings.json
                     }
                 }
             }

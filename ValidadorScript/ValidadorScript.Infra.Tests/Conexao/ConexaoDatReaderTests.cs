@@ -1,3 +1,4 @@
+using ValidadorScript.Application.Conexao;
 using ValidadorScript.Domain.Conexao;
 using ValidadorScript.Infra.Conexao;
 using ValidadorScript.Infra.Configuracao;
@@ -6,6 +7,7 @@ namespace ValidadorScript.Infra.Tests.Conexao
 {
     public class ConexaoDatReaderTests
     {
+
         //[Fact] de sucesso: um cenário fixo, um resultado esperado.
         [Fact]
         public void LerDadosConexao_ArquivoOracleValido_RetornaDadosConexao()
@@ -262,8 +264,21 @@ namespace ValidadorScript.Infra.Tests.Conexao
             Assert.Contains("tem o tipo SQLSERVER, mas contém o [USUARIO_ORACLE]", excecao.Message);
         }
 
+
+
+        private sealed class CredenciaisStoreFake(Credenciais credenciais) : ICredenciaisStore
+        {
+            public Credenciais Obter() => credenciais;
+            public void Salvar(Credenciais novas) { }
+        }
+
+        private static ConexaoDatReader CriarReader() =>
+            new(new CredenciaisStoreFake(new Credenciais("senha_teste", "usuario_sqlserver_teste", "senha_teste")));
+
+
+
         // Monta a dependência em memória, sem appsettings.json (dados inventados)
-        private static ConexaoDatReader CriarReader()
+        /*private static ConexaoDatReader CriarReader()
         {
             var credenciais = new CredenciaisDatabase
             {
@@ -275,6 +290,6 @@ namespace ValidadorScript.Infra.Tests.Conexao
             };
 
             return new ConexaoDatReader(credenciais);
-        }
+        }*/
     }
 }

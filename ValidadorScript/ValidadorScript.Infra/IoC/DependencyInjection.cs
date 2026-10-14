@@ -10,9 +10,9 @@ namespace ValidadorScript.Infra.IoC
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfra(this IServiceCollection services, CredenciaisDatabase credenciais)
+        public static IServiceCollection AddInfra(this IServiceCollection services, string caminhoAppSettings)
         {
-            services.AddSingleton(credenciais);
+            services.AddSingleton<ICredenciaisStore>(new AppSettingsCredenciaisStore(caminhoAppSettings));
             services.AddSingleton<IDadosConexaoReader, ConexaoDatReader>();
 
             return services;
