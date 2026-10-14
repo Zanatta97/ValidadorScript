@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             lbTitulo = new Label();
             rtbScriptInput = new RichTextBox();
             rtbRetornoScript = new RichTextBox();
@@ -41,6 +42,7 @@
             btnExportar = new Button();
             ofdAbrirScript = new OpenFileDialog();
             ssStatus = new StatusStrip();
+            btnConfiguracoes = new Button();
             SuspendLayout();
             // 
             // lbTitulo
@@ -186,11 +188,23 @@
             ssStatus.Size = new Size(678, 22);
             ssStatus.TabIndex = 11;
             // 
+            // btnConfiguracoes
+            // 
+            btnConfiguracoes.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnConfiguracoes.Image = Properties.Resources.gear;
+            btnConfiguracoes.Location = new Point(626, 110);
+            btnConfiguracoes.Name = "btnConfiguracoes";
+            btnConfiguracoes.Size = new Size(40, 40);
+            btnConfiguracoes.TabIndex = 13;
+            btnConfiguracoes.UseVisualStyleBackColor = true;
+            btnConfiguracoes.Click += btnConfiguracoes_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(678, 549);
+            Controls.Add(btnConfiguracoes);
             Controls.Add(ssStatus);
             Controls.Add(btnExportar);
             Controls.Add(btnValidar);
@@ -204,11 +218,13 @@
             Controls.Add(rtbScriptInput);
             Controls.Add(lbTitulo);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(700, 600);
             Name = "MainForm";
             RightToLeft = RightToLeft.No;
             Text = "Validador de Script";
             Load += MainForm_Load;
+            Shown += MainForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -229,5 +245,6 @@
         private Button btnExportar;
         private OpenFileDialog ofdAbrirScript;
         private StatusStrip ssStatus;
+        private Button btnConfiguracoes;
     }
 }

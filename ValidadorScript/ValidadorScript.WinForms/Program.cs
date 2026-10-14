@@ -1,7 +1,4 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.SqlServer.TransactSql.ScriptDom;
-using ValidadorScript.Infra.Configuracao;
 using ValidadorScript.Infra.IoC;
 
 namespace ValidadorScript.WinForms
@@ -20,16 +17,9 @@ namespace ValidadorScript.WinForms
 
             try
             {
-                var configuration = new ConfigurationBuilder()
-                    .SetBasePath(AppContext.BaseDirectory)
-                    .AddJsonFile("appsettings.json", optional: false)
-                    .Build();
-
-                var credenciais = configuration.GetSection("Credenciais").Get<CredenciaisDatabase>()
-                    ?? throw new InvalidOperationException("Seção Credenciais não encontrada no appsettings.json.");
 
                 var services = new ServiceCollection();
-                services.AddInfra(credenciais);
+                services.AddInfra(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
                 services.AddTransient<MainForm>();
 
                 using var provider = services.BuildServiceProvider();

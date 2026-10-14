@@ -6,11 +6,13 @@ namespace ValidadorScript.WinForms
     public partial class MainForm : Form
     {
         private readonly IDadosConexaoReader _dadosConexaoReader;
+        private readonly ICredenciaisStore _credenciaisStore;
         private DadosConexao _dadosConexao;
-        public MainForm(IDadosConexaoReader dadosConexaoReader)
+        public MainForm(IDadosConexaoReader dadosConexaoReader, ICredenciaisStore credenciaisStore)
         {
             InitializeComponent();
             _dadosConexaoReader = dadosConexaoReader;
+            _credenciaisStore = credenciaisStore;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -19,8 +21,6 @@ namespace ValidadorScript.WinForms
             btnExportar.Enabled = false;
             btnValidar.Enabled = false;
             rtbScriptInput.Enabled = false;
-
-            btnConexao_Click(sender, e);
         }
 
         private void btnConexao_Click(object sender, EventArgs e)
@@ -47,6 +47,7 @@ namespace ValidadorScript.WinForms
                     btnValidar.Enabled = true;
                     btnImportar.Enabled = true;
                     rtbScriptInput.Enabled = true;
+
                 }
                 else
                 {
@@ -70,6 +71,36 @@ namespace ValidadorScript.WinForms
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private bool AbrirConfiguracao()
+        {
+            // O dialog abre preenchido com o que já existe
+            using var dialog = new ConfiguracoesForm(_credenciaisStore.Obter());
+
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+                return false;
+
+            _credenciaisStore.Salvar(dialog.Credenciais!);
+            return true;
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+
+            if (CredenciaisDatabaseValidator.ValidarCredenciais(_credenciaisStore.Obter()).Count > 0 && !AbrirConfiguracao())
+            {
+                Close();
+                return;
+            }
+
+            btnConexao_Click(sender, e);
+        }
+
+        private void btnConfiguracoes_Click(object sender, EventArgs e)
+        {
+            if (AbrirConfiguracao())
+                btnConexao_Click(sender, e);  // relê a conexão com as credenciais novas
         }
     }
 }
